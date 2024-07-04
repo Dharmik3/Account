@@ -71,3 +71,14 @@ exports.updateAccount = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getAccountsName = async (req, res, next) => {
+    try {
+        const accounts = await GeneralAccount.find();
+        const accountsName = accounts.map(account => account.accountName)
+        res.status(200).json({ success: true, data: accountsName });
+    }
+    catch (err) {
+        next(error);
+    }
+}

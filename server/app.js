@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const notFound = require('./middleware/notFound')
 const errorHandler = require('./middleware/errorHandler.js')
 const cors = require('cors');
+const accountController = require('./controllers/accountController.js')
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,7 @@ const accountRoutes = require('./routes/accountRoutes');
 
 app.use('/api/v1/journal', journalRoutes);
 app.use('/api/v1/account', accountRoutes);
+app.use('/api/v1/getAccounts', accountController.getAccountsName)
 
 app.use(notFound);
 app.use(errorHandler);

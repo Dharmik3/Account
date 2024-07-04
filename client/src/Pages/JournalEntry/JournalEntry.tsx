@@ -1,5 +1,23 @@
 import React from "react";
-import { Typography, Button, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { JournalEntryForm } from "./components/JournalEntryForm";
+
 export const JournalEntry = () => {
-  return <Box sx={{ maxWidth: 1500, px: 12, my: 12 }}></Box>;
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+        mt={3}
+      >
+        <Typography fontWeight={700} fontSize={24} textAlign={"center"}>
+          Create Journal
+        </Typography>
+
+        <JournalEntryForm />
+      </Box>
+    </Box>
+  );
 };
