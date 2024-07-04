@@ -19,3 +19,11 @@ export interface GetDeleteAccountMaster {
 export const getDeleteAccountMasterKey = {
   keys: (args: GetDeleteAccountMaster) => [args],
 };
+
+export interface GetAccountsName {
+  key: string;
+}
+
+export const getAccountsNameKey = {
+  keys: (args: GetAccountsName) => [args],
+};

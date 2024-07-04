@@ -6,32 +6,30 @@ const journalSchema = new mongoose.Schema({
         required: true,
     },
     cashBankAccount: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'GeneralAccount',
+        type: String,
         required: true,
     },
-    voucherNumberDr: {
+    voucherNumber: {
         type: Number,
         unique: true,
         sparse: true, // Allows either voucherNumberDr or receiptNumberCr to be unique
     },
-    receiptNumberCr: {
+    receiptNumber: {
         type: Number,
         unique: true,
         sparse: true, // Allows either receiptNumberCr or voucherNumberDr to be unique
     },
-    debitCredit: {
+    balanceType: {
         type: String,
         required: true,
-        enum: ['Debit', 'Credit'],
+        enum: ['dr', 'cr'],
     },
     transactionDetails: {
         type: String,
         maxlength: 50,
     },
     generalAccount: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'GeneralAccount',
+        type: String,
         required: true,
     },
     amount: {

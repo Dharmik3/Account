@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useDeleteAccountMaster } from "../../../hooks/udeDeleteAccountMaster";
+import { useDeleteAccountMaster } from "../../../hooks/useDeleteAccountMaster";
 import { useGetAccountMaster } from "../../../hooks/useGetAccountMaster";
 
 interface AccountMasterDeleteDialogProps {

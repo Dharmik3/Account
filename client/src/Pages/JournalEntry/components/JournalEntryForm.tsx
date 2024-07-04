@@ -9,11 +9,12 @@ import {
   Divider,
   Chip,
 } from "@mui/material";
-import { accountType } from "../../../constants/account";
-import { BalanceType } from "../../../models";
+import { BalanceType, CreateJournalEntry } from "../../../models";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useGetAccountsName } from "../../../hooks/useGetAccountsName";
+import { useCreateJournalEntry } from "../../../hooks/useCreateJournalEntry";
 
 interface InputType {
   transactionDate: string;
@@ -28,12 +29,17 @@ interface InputType {
 }
 
 export const JournalEntryForm = () => {
-  const onSuccess = () => {
+  const { data: getAccountsName } = useGetAccountsName();
 
-  };
-  const onError = () => {
-
-  };
+  const accountsName = React.useMemo(() => {
+    return getAccountsName?.pages[0]?.data;
+  }, [getAccountsName]);
+  const onSuccess = () => {};
+  const onError = () => {};
+  const { mutate: createJournalEntry } = useCreateJournalEntry(
+    onSuccess,
+    onError
+  );
 
   const [input, setInput] = React.useState<InputType>({
     transactionDate: "",
@@ -66,12 +72,9 @@ export const JournalEntryForm = () => {
   }, [input]);
 
   const handleCreate = async () => {
-    // createAccountMaster(input as CreateMasterAccountPayload);
+    createJournalEntry(input as CreateJournalEntry);
   };
-  <Snackbar
-    autoHideDuration={2000}
-    message="Account Created Successfully"
-  />;
+  <Snackbar autoHideDuration={2000} message="Account Created Successfully" />;
   console.log(input);
 
   return (
@@ -127,9 +130,9 @@ export const JournalEntryForm = () => {
             style: { width: 250, maxHeight: 300 },
           }}
         >
-          {accountType.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {accountsName?.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
             </MenuItem>
           ))}
         </TextField>
@@ -239,9 +242,9 @@ export const JournalEntryForm = () => {
               style: { width: 250 },
             }}
           >
-            {accountType.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {accountsName?.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
               </MenuItem>
             ))}
           </TextField>

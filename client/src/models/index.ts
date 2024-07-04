@@ -1,2 +1,3 @@
 export * from "./Account";
 export * from "./Response";
+export * from "./Journal";

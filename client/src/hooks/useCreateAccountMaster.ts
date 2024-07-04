@@ -3,7 +3,7 @@ import {
   CreateAccountMasterResponse,
   Response,
   CreateMasterAccountPayload,
-} from "../models"; // Ensure this path is correct
+} from "../models";
 import { createAccountMaster } from "../api/account";
 
 export const useCreateAccountMaster = (
