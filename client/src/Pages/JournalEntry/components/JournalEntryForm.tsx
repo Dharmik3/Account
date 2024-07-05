@@ -8,6 +8,7 @@ import {
   Snackbar,
   Divider,
   Chip,
+  Alert,
 } from "@mui/material";
 import { BalanceType, CreateJournalEntry } from "../../../models";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -34,9 +35,21 @@ export const JournalEntryForm = () => {
   const accountsName = React.useMemo(() => {
     return getAccountsName?.pages[0]?.data;
   }, [getAccountsName]);
-  const onSuccess = () => {};
+  const enequeSnackBar = () => {
+    return (
+      <Snackbar
+        autoHideDuration={2000}
+        open={true}
+        message="Journal Entry Added"
+      />
+    );
+  };
+  const onSuccess = () => {
+    console.log("success");
+    enequeSnackBar();
+  };
   const onError = () => {};
-  const { mutate: createJournalEntry } = useCreateJournalEntry(
+  const { mutate: createJournalEntry, isSuccess } = useCreateJournalEntry(
     onSuccess,
     onError
   );
@@ -74,8 +87,6 @@ export const JournalEntryForm = () => {
   const handleCreate = async () => {
     createJournalEntry(input as CreateJournalEntry);
   };
-  <Snackbar autoHideDuration={2000} message="Account Created Successfully" />;
-  console.log(input);
 
   return (
     <Box
@@ -111,7 +122,6 @@ export const JournalEntryForm = () => {
           />
         </LocalizationProvider>
       </Box>
-
       <Box>
         <Typography fontSize={14} component={"span"} color={"GrayText"}>
           Cash Bank Account
@@ -137,7 +147,6 @@ export const JournalEntryForm = () => {
           ))}
         </TextField>
       </Box>
-
       <Box
         sx={{
           display: "flex",
@@ -285,7 +294,6 @@ export const JournalEntryForm = () => {
           sx={{ mb: 3 }}
         />
       </Box>
-
       <Button
         autoFocus
         onClick={handleCreate}
@@ -295,6 +303,18 @@ export const JournalEntryForm = () => {
       >
         Create
       </Button>
+      {isSuccess && (
+        <Snackbar  autoHideDuration={2000} onClose={() => {}}>
+          <Alert
+            onClose={() => {}}
+            severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            This is a success Alert inside a Snackbar!
+          </Alert>
+        </Snackbar>
+      )}
     </Box>
   );
 };
