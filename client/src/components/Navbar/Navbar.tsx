@@ -9,6 +9,7 @@ export const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isTransactionOpen, setIsTranactionOpen] = React.useState(false);
   const [isAccountOpen, setIsAccountOpen] = React.useState(false);
+  const [isDailyAccountOpen, setIsDailyAccountOpen] = React.useState(false);
 
   const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -19,6 +20,10 @@ export const Navbar = () => {
     //   @ts-ignore
     if (event.target?.id === "masters") {
       setIsAccountOpen(true);
+    }
+    //   @ts-ignore
+    if (event.target?.id === "account") {
+      setIsDailyAccountOpen(true);
     }
     setAnchorEl(event.currentTarget);
   };
@@ -45,6 +50,39 @@ export const Navbar = () => {
         Software
       </Typography>
       <Box sx={{ ml: "auto", display: "flex", gap: 4, alignItems: "center" }}>
+        <Box>
+          <Typography
+            id="account"
+            onClick={handleClick}
+            onMouseOver={handleClick}
+            color="black"
+          >
+            Account
+          </Typography>
+          <Menu
+            anchorEl={anchorEl}
+            open={isDailyAccountOpen}
+            onClose={() => setIsDailyAccountOpen(false)}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            MenuListProps={{ onMouseLeave: () => setIsDailyAccountOpen(false) }}
+          >
+            <MenuItem
+              onClick={() => {
+                navigate("/daily-book");
+                setIsDailyAccountOpen(false);
+              }}
+            >
+              Daily Book
+            </MenuItem>
+          </Menu>
+        </Box>
         <Box>
           <Typography
             id="transaction"
