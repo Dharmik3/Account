@@ -33,9 +33,7 @@ export const JournalEntryForm = () => {
   const { data: getAccountsName } = useGetAccountsName();
 
   const accountsName = React.useMemo(() => {
-    return getAccountsName?.pages[0]?.data?.map(
-      (elm) => elm?.accountName
-    );
+    return getAccountsName?.pages[0]?.data?.map((elm) => elm?.accountName);
   }, [getAccountsName]);
   const enequeSnackBar = () => {
     return (
@@ -46,17 +44,7 @@ export const JournalEntryForm = () => {
       />
     );
   };
-  const onSuccess = () => {
-    console.log("success");
-    enequeSnackBar();
-  };
-  const onError = () => {};
-  const { mutate: createJournalEntry, isSuccess } = useCreateJournalEntry(
-    onSuccess,
-    onError
-  );
-
-  const [input, setInput] = React.useState<InputType>({
+  const initialData: InputType = {
     transactionDate: "",
     cashBankAccount: "",
     balanceType: "cr",
@@ -66,7 +54,19 @@ export const JournalEntryForm = () => {
     generalAccount: "",
     amount: undefined,
     details: "",
-  });
+  };
+  const onSuccess = () => {
+    console.log("success");
+    setInput(initialData);
+    enequeSnackBar();
+  };
+  const onError = () => {};
+  const { mutate: createJournalEntry, isSuccess } = useCreateJournalEntry(
+    onSuccess,
+    onError
+  );
+
+  const [input, setInput] = React.useState<InputType>(initialData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -85,6 +85,7 @@ export const JournalEntryForm = () => {
         input.details
     );
   }, [input]);
+  console.log(validation)
 
   const handleCreate = async () => {
     createJournalEntry(input as CreateJournalEntry);

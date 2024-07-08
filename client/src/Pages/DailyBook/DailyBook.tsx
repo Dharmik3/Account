@@ -18,7 +18,11 @@ import {
   Popover,
   RangeCalendar,
 } from "react-aria-components";
-import { ArrowBackIosNewOutlined, ArrowForwardIos } from "@mui/icons-material";
+import {
+  ArrowBackIosNewOutlined,
+  ArrowForwardIos,
+  DateRange,
+} from "@mui/icons-material";
 import "./styles.scss";
 import { useDailyBookRecord } from "../../hooks/useGetDailyBookRecord";
 import DailyRecord from "./components/DailyRecord";
@@ -81,8 +85,15 @@ export const DailyBook = () => {
                   <DateSegment segment={segment} className="DateSegment" />
                 )}
               </DateInput>
-              <Button className="Button" style={{ marginLeft: 10 }}>
-                ▼
+              <Button
+                style={{
+                  marginLeft: 10,
+                  backgroundColor: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <DateRange />
               </Button>
             </Group>
             <Popover className="Popover">
