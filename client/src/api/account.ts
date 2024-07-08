@@ -61,11 +61,12 @@ export const updateAccountMaster = async (
 
 
 export const getAccountsName = async (): Promise<
-  Response<string[]>
+  Response<{ _id: string; accountName: string }[]>
 > => {
   try {
-    const response: AxiosResponse<Response<string[]>> =
-      await getInstance().get("/v1/getAccounts");
+    const response: AxiosResponse<
+      Response<{ _id: string; accountName: string }[]>
+    > = await getInstance().get("/v1/getAccounts");
     return response.data;
   } catch (err) {
     return Promise.reject((err as AxiosError).response);

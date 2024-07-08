@@ -1,4 +1,5 @@
 const Journal = require('../models/journalSchema');
+const moment = require('moment-timezone');
 
 exports.getAllJournals = async (req, res, next) => {
     try {
@@ -11,6 +12,11 @@ exports.getAllJournals = async (req, res, next) => {
 
 exports.createJournal = async (req, res, next) => {
     try {
+
+        if (req.body.transactionDate) {
+            const transactionDate = moment.tz(req.body.transactionDate, 'Asia/Kolkata').toDate();
+            req.body.transactionDate = transactionDate;
+        }
         const journal = new Journal(req.body);
         await journal.save();
         res.status(201).json(journal);
@@ -18,3 +24,5 @@ exports.createJournal = async (req, res, next) => {
         next(error);
     }
 };
+
+

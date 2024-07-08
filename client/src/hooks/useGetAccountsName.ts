@@ -7,7 +7,7 @@ import { Response } from "../models";
 import { getAccountsName } from "../api/account";
 
 export const useGetAccountsName = (): UseInfiniteQueryResult<
-  Response<string[]>
+  Response<{ _id: string; accountName: string }[]>
 > => {
   const queryData = useInfiniteQuery(
     getAccountsNameKey.keys({
@@ -38,7 +38,7 @@ export const useGetAccountsName = (): UseInfiniteQueryResult<
         return e;
       },
       cacheTime: 0,
-      staleTime:0,
+      staleTime: 0,
     }
   );
   return queryData;

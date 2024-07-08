@@ -33,7 +33,9 @@ export const JournalEntryForm = () => {
   const { data: getAccountsName } = useGetAccountsName();
 
   const accountsName = React.useMemo(() => {
-    return getAccountsName?.pages[0]?.data;
+    return getAccountsName?.pages[0]?.data?.map(
+      (elm) => elm?.accountName
+    );
   }, [getAccountsName]);
   const enequeSnackBar = () => {
     return (
@@ -304,7 +306,7 @@ export const JournalEntryForm = () => {
         Create
       </Button>
       {isSuccess && (
-        <Snackbar  autoHideDuration={2000} onClose={() => {}}>
+        <Snackbar autoHideDuration={2000} onClose={() => {}}>
           <Alert
             onClose={() => {}}
             severity="success"
