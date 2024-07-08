@@ -1,16 +1,12 @@
 const Journal = require('../models/journalSchema');
 
 exports.getJournalInRange = async (req, res, next) => {
-    const { startDate, endDate } = req.params
-
+    const { date } = req.query;
     try {
         const dailyJournal = await Journal.find({
-            transactionDate: {
-                $gte: startDate,
-                $lte: endDate
-            }
+            transactionDate: date
         })
-        console.log(dailyJournal)
+        res.status(201).json({ success: true, data: dailyJournal });
     }
     catch (error) {
         next(error)

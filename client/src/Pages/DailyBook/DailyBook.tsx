@@ -1,5 +1,10 @@
 import * as React from "react";
-import { Box, Typography, Button as MaterialUIButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button as MaterialUIButton,
+  IconButton,
+} from "@mui/material";
 import {
   Button,
   CalendarCell,
@@ -10,16 +15,39 @@ import {
   Dialog,
   Group,
   Heading,
-  Label,
   Popover,
   RangeCalendar,
 } from "react-aria-components";
+import { ArrowBackIosNewOutlined, ArrowForwardIos } from "@mui/icons-material";
 import "./styles.scss";
-import { parseDate } from "@internationalized/date";
+import { useDailyBookRecord } from "../../hooks/useGetDailyBookRecord";
+import DailyRecord from "./components/DailyRecord";
 
 export const DailyBook = () => {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
+  const [currentDate, setCurrentDate] = React.useState<Date>();
+
+  const decreaseDateByOneDay = () => {
+    if (currentDate) {
+      const newDate = new Date(currentDate);
+      newDate.setDate(newDate.getDate() - 1);
+      const start = new Date(startDate);
+      if (newDate >= start) {
+        setCurrentDate(newDate);
+      }
+    }
+  };
+  const increaseDateByOneDay = () => {
+    if (currentDate) {
+      const newDate = new Date(currentDate);
+      newDate.setDate(newDate.getDate() + 1);
+      const end = new Date(endDate);
+      if (newDate <= end) {
+        setCurrentDate(newDate);
+      }
+    }
+  };
   return (
     <>
       <Box
@@ -37,6 +65,7 @@ export const DailyBook = () => {
               const startDate = `${start.year}-${start.month}-${start.day}`;
               const endDate = `${end.year}-${end.month}-${end.day}`;
               setStartDate(startDate);
+              setCurrentDate(new Date(startDate));
               setEndDate(endDate);
             }}
           >
@@ -77,9 +106,35 @@ export const DailyBook = () => {
               </Dialog>
             </Popover>
           </DateRangePicker>
-          <MaterialUIButton variant="contained">Get</MaterialUIButton>
         </Box>
       </Box>
+      {startDate === "" ? (
+        <Typography textAlign={"center"} fontSize={28} fontWeight={600} mt={5}>
+          Please select the date
+        </Typography>
+      ) : (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            mt={3}
+          >
+            <IconButton onClick={decreaseDateByOneDay}>
+              <ArrowBackIosNewOutlined />
+            </IconButton>
+            <Typography fontSize={24} fontWeight={600}>
+              {currentDate?.toDateString()}
+            </Typography>
+            <IconButton onClick={increaseDateByOneDay}>
+              <ArrowForwardIos />
+            </IconButton>
+          </Box>
+          <DailyRecord currentDate={currentDate as Date} />
+        </>
+      )}
     </>
   );
 };

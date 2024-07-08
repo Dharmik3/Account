@@ -27,3 +27,12 @@ export interface GetAccountsName {
 export const getAccountsNameKey = {
   keys: (args: GetAccountsName) => [args],
 };
+
+export interface GetDailyBookRecord {
+  key: string;
+  date: string;
+}
+
+export const getDailyBookRecordKey = {
+  keys: (args: GetDailyBookRecord) => [args],
+};
