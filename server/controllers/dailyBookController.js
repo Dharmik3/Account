@@ -3,6 +3,32 @@ const Journal = require('../models/journalSchema');
 exports.getJournalInRange = async (req, res, next) => {
     const { date } = req.query;
     try {
+
+        const previousJournals = await Journal.find({
+            transactionDate: { $lt: date }
+        });
+
+        // Calculate the opening balance
+        let openingBalance = 0;
+        previousJournals.forEach(record => {
+            if (record.cashBankAccount === 'Cash A/C') {
+                if (record.balanceType === 'cr') {
+                    openingBalance += record.amount;
+                } else if (record.balanceType === 'dr') {
+                    openingBalance -= record.amount;
+                }
+            }
+            else if (record.generalAccount === 'Cash A/C') {
+                if (record.balanceType === 'cr') {
+                    openingBalance -= record.amount;
+                } else if (record.balanceType === 'dr') {
+                    openingBalance += record.amount;
+                }
+            }
+
+        });
+
+
         const dailyJournals = await Journal.find({
             transactionDate: date
         })
@@ -15,8 +41,8 @@ exports.getJournalInRange = async (req, res, next) => {
 
         dailyJournals.forEach(record => {
             const { balanceType, cashBankAccount, generalAccount } = record;
-            const targetAccount = (balanceType === 'cr') ? cashBankAccount : generalAccount;
-            const counterpartAccount = (balanceType === 'cr') ? generalAccount : cashBankAccount;
+            const targetAccount = cashBankAccount
+            const counterpartAccount = generalAccount
 
             if (!groupedRecords[balanceType][targetAccount]) {
                 groupedRecords[balanceType][targetAccount] = [];
@@ -34,7 +60,9 @@ exports.getJournalInRange = async (req, res, next) => {
         // Transform the grouped records into the required format
         const result = {
             cr: [],
-            dr: []
+            dr: [],
+            openingBalance,
+            closingBalance: openingBalance
         };
 
         // Helper function to map record to cr entry
@@ -64,7 +92,24 @@ exports.getJournalInRange = async (req, res, next) => {
                 entries: entries.map(mapDrEntry)
             });
         }
+        dailyJournals.forEach(record => {
+            if (record.cashBankAccount === 'Cash A/C') {
+                if (record.balanceType === 'cr') {
+                    result.closingBalance += record.amount;
+                } else if (record.balanceType === 'dr') {
+                    result.closingBalance -= record.amount;
+                }
+            }
+            else if (record.generalAccount === 'Cash A/C') {
+                if (record.balanceType === 'cr') {
+                    result.closingBalance -= record.amount;
+                } else if (record.balanceType === 'dr') {
+                    result.closingBalance += record.amount;
+                }
+            }
 
+        });
+        
         res.status(200).json({ success: true, data: result });
     }
     catch (error) {

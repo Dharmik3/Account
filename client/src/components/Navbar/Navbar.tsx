@@ -30,7 +30,6 @@ export const Navbar = () => {
   return (
     <AppBar
       elevation={1}
-      color="info"
       sx={{
         height: 60,
         display: "flex",
@@ -39,6 +38,7 @@ export const Navbar = () => {
         justifyContent: "space-between",
         px: 6,
         position: "static",
+        backgroundColor: "dodgerblue",
       }}
     >
       <IcecreamTwoTone
@@ -49,13 +49,12 @@ export const Navbar = () => {
       <Typography fontWeight={600} fontSize={20} ml={1}>
         Software
       </Typography>
-      <Box sx={{ ml: "auto", display: "flex", gap: 4, alignItems: "center" }}>
+      <Box sx={{ ml: "auto", display: "flex", gap: 4, alignItems: "center",color:'whitesmoke' }}>
         <Box>
           <Typography
             id="account"
             onClick={handleClick}
             onMouseOver={handleClick}
-            color="black"
           >
             Account
           </Typography>
@@ -88,7 +87,6 @@ export const Navbar = () => {
             id="transaction"
             onClick={handleClick}
             onMouseOver={handleClick}
-            color="black"
           >
             Transaction
           </Typography>
@@ -121,7 +119,6 @@ export const Navbar = () => {
             id="masters"
             onClick={handleClick}
             onMouseOver={handleClick}
-            color="black"
           >
             Masters
           </Typography>
