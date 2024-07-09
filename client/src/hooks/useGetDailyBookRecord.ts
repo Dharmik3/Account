@@ -5,7 +5,7 @@ import { getDailyBookRecord } from "../api/dailyBook";
 
 export const useDailyBookRecord = (
   date: string
-): UseQueryResult<Response<DailyBook[]>> => {
+): UseQueryResult<Response<DailyBook>> => {
   const queryData = useQuery(
     getDailyBookRecordKey.keys({
       key: "DailyBookRecord",

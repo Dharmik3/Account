@@ -11,5 +11,13 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+//   background-color: #dddddd;
+}
+
+.accountNameCell{
+    background-color: #a8becf;
+}
+
+.totalCell{
+    background-color: #96b88b;
 }

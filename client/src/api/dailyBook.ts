@@ -8,10 +8,10 @@ export const getDailyBookRecord = async ({
   queryKey,
 }: QueryFunctionContext<
   ReturnType<(typeof getDailyBookRecordKey)["keys"]>
->): Promise<Response<DailyBook[]>> => {
+>): Promise<Response<DailyBook>> => {
   try {
     const { date } = queryKey[0] || {};
-    const response: AxiosResponse<Response<DailyBook[]>> =
+    const response: AxiosResponse<Response<DailyBook>> =
       await getInstance().get("/v1/dailyBook", {
         params: {
           date,

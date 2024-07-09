@@ -1,14 +1,28 @@
 import { BalanceType } from "./Account";
 
-export interface DailyBook {
-  _id: string;
-  transactionDate: string;
-  cashBankAccount: string;
-  voucherNumber?: number;
-  receiptNumber?: number;
-  balanceType: BalanceType;
+
+export interface CrAccountEntry {
+  receiptNumber: number;
   transactionDetails: string;
-  generalAccount: string;
   amount: number;
+}
+
+export interface DrAccountEntry {
+  voucherNumber: number;
   details: string;
+  amount: number;
+}
+
+export interface CrEntry {
+  accountName: string;
+  entries: CrAccountEntry[];
+}
+export interface DrEntry {
+  accountName: string;
+  entries: DrAccountEntry[];
+}
+
+export interface DailyBook {
+  cr: CrEntry[] | [];
+  dr: DrEntry[] | [];
 }

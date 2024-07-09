@@ -131,7 +131,7 @@ export const DailyBook = () => {
               alignItems: "center",
               justifyContent: "space-between",
             }}
-            mt={3}
+            my={3}
           >
             <IconButton onClick={decreaseDateByOneDay}>
               <ArrowBackIosNewOutlined />
