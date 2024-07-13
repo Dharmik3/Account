@@ -1,5 +1,22 @@
-import * as React from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import {
+  ArrowBackIosNewOutlined,
+  ArrowForwardIos,
+  DateRange,
+} from "@mui/icons-material";
+import {
+  Box,
+  IconButton,
+  Typography,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  InputLabel,
+  FormControl,
+  OutlinedInput,
+  Theme,
+  useTheme,
+} from "@mui/material";
+import React from "react";
 import {
   Button,
   CalendarCell,
@@ -13,18 +30,39 @@ import {
   Popover,
   RangeCalendar,
 } from "react-aria-components";
-import {
-  ArrowBackIosNewOutlined,
-  ArrowForwardIos,
-  DateRange,
-} from "@mui/icons-material";
-import DailyRecord from "./components/DailyRecord";
-import "./styles.scss";
+import { useGetAccountsName } from "../../hooks/useGetAccountsName";
 
-export const DailyBook = () => {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+function getStyles(name: string, accountName: string[], theme: Theme) {
+  return {
+    fontWeight:
+      accountName?.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+export const Ledger = () => {
+  const theme = useTheme();
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
   const [currentDate, setCurrentDate] = React.useState<Date>();
+  const { data: getAccountsName } = useGetAccountsName();
+
+  const accountsName = React.useMemo(() => {
+    return getAccountsName?.pages[0]?.data?.map((elm) => elm?.accountName);
+  }, [getAccountsName]);
+  const [account, setAccount] = React.useState<string[]>([]);
 
   const decreaseDateByOneDay = () => {
     if (currentDate) {
@@ -46,6 +84,18 @@ export const DailyBook = () => {
       }
     }
   };
+
+  const handleChange = (e: SelectChangeEvent<typeof account>) => {
+    const {
+      target: { value },
+    } = e;
+    setAccount(typeof value === "string" ? value.split(",") : value);
+  };
+
+  React.useEffect(() => {
+    if (accountsName?.length) setAccount(accountsName as string[]);
+  }, [accountsName]);
+
   return (
     <>
       <Box
@@ -53,9 +103,33 @@ export const DailyBook = () => {
         mt={3}
       >
         <Typography fontWeight={700} fontSize={24}>
-          Daily Book
+          Ledger
         </Typography>
         <Box sx={{ display: "flex", gap: 4 }}>
+          <Box minWidth={200}>
+            <FormControl sx={{ width: 250 }} size="small">
+              <InputLabel id="demo-simple-select-label">Account</InputLabel>
+              <Select
+                multiple
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={account}
+                onChange={handleChange}
+                input={<OutlinedInput label="Account" />}
+                MenuProps={MenuProps}
+              >
+                {accountsName?.map((option, index) => (
+                  <MenuItem
+                    key={index}
+                    value={option}
+                    style={getStyles(option, account, theme)}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
           <DateRangePicker
             className="DateRangePicker"
             onChange={(e) => {
@@ -137,7 +211,6 @@ export const DailyBook = () => {
               <ArrowForwardIos />
             </IconButton>
           </Box>
-          <DailyRecord currentDate={currentDate as Date} />
         </>
       )}
     </>

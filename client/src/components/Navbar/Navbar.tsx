@@ -49,7 +49,15 @@ export const Navbar = () => {
       <Typography fontWeight={600} fontSize={20} ml={1}>
         Software
       </Typography>
-      <Box sx={{ ml: "auto", display: "flex", gap: 4, alignItems: "center",color:'whitesmoke' }}>
+      <Box
+        sx={{
+          ml: "auto",
+          display: "flex",
+          gap: 4,
+          alignItems: "center",
+          color: "whitesmoke",
+        }}
+      >
         <Box>
           <Typography
             id="account"
@@ -79,6 +87,14 @@ export const Navbar = () => {
               }}
             >
               Daily Book
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/ledger");
+                setIsDailyAccountOpen(false);
+              }}
+            >
+              Ledger
             </MenuItem>
           </Menu>
         </Box>
