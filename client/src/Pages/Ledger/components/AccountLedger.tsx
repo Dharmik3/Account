@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Box, CircularProgress } from "@mui/material";
 import dayjs from "dayjs";
 import { useGetLedger } from "../../../hooks/useGetLedger";

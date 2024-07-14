@@ -1,4 +1,3 @@
-import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, CircularProgress } from "@mui/material";
 import { AccountActionCell } from "../../../cells";

@@ -3,7 +3,9 @@ import axios, { AxiosInstance } from "axios";
 let APIInstance: AxiosInstance;
 export function createAxiosInstance() {
   const instance = axios.create({
-    baseURL: `http://localhost:5001/api`,
+    baseURL: import.meta.env.VITE_PROD
+      ? "https://account-service-kdvp.onrender.com/api"
+      : `http://localhost:5001/api`,
   });
   instance.interceptors.request.use(
     (config) => {

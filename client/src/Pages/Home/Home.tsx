@@ -1,5 +1,4 @@
-import React from "react";
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import img from "../../assets/sample.jpg";
 export const Home = () => {
   return (

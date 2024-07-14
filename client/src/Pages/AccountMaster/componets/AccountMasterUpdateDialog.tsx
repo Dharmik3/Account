@@ -16,11 +16,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { accountType } from "../../../constants/account";
 import {
   BalanceType,
-  CreateMasterAccountPayload,
   GetAccountMasterResponse,
   UpdateAccountPayload,
 } from "../../../models";
-import { useCreateAccountMaster } from "../../../hooks/useCreateAccountMaster";
 import { useUpdateAccountMaster } from "../../../hooks/useUpdateAccountMaster";
 import { useGetAccountMaster } from "../../../hooks/useGetAccountMaster";
 
@@ -81,7 +79,8 @@ export const AccountMasterUpdateDialog = (
       if (
         input[key as keyof InputType] !== initialData[key as keyof InputType]
       ) {
-        updatedFields[key as keyof InputType] = input[key as keyof InputType];
+        // @ts-ignore
+        updatedFields[key as keyof InputType ] = input[key as keyof InputType];
       }
     });
 
