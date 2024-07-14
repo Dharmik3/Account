@@ -11,7 +11,7 @@ dotenv.config();
 require('./services/connection');
 const corsOptions = {
     credentials: true,
-    origin: ['http://localhost:5173',] // Whitelist the domains you want to allow
+    origin: ['*'] // Whitelist the domains you want to allow
 };
 
 app.use(cors(corsOptions))
