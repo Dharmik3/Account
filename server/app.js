@@ -18,14 +18,16 @@ app.use(cors(corsOptions))
 
 app.use(express.json());
 
-const journalRoutes = require('./routes/journalRoutes.js');
+const journalRoutes = require('./routes/journalRoutes');
 const accountRoutes = require('./routes/accountRoutes');
-const dailyBookRoutes = require('./routes/dailyBookRoutes.js');
+const dailyBookRoutes = require('./routes/dailyBookRoutes');
+const ledgerRoutes = require('./routes/ledgerRoutes')
 
 app.use('/api/v1/journal', journalRoutes);
 app.use('/api/v1/account', accountRoutes);
-app.use('/api/v1/dailyBook',dailyBookRoutes)
+app.use('/api/v1/dailyBook', dailyBookRoutes)
 app.use('/api/v1/getAccounts', accountController.getAccountsName)
+app.use('/api/v1/ledger', ledgerRoutes)
 
 app.use(notFound);
 app.use(errorHandler);
