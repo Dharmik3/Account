@@ -22,9 +22,9 @@ exports.getLedger = async (req, res, next) => {
         const { openingBalance, balanceType } = openingAccount;
 
         const prevLedgerRecords = await Journal.find({ transactionDate: { $lt: startDate }, $or: [{ generalAccount: accountName }, { cashBankAccount: accountName }] })
-        const journalRecords = await Journal.find(query)
+        const journalRecords = await Journal.find(query).sort({ transactionDate: 1 });
 
-        const ledgreRecords = journalRecords.map(record => {
+        const ledgerRecords = journalRecords.map(record => {
             return {
                 transactionDate: record.transactionDate,
                 amount: record.amount,
@@ -53,7 +53,7 @@ exports.getLedger = async (req, res, next) => {
         const response = {
             openingBalance: Math.abs(prevBalance),
             openingBnalanceType: prevBalance > 0 ? 'cr' : (prevBalance === 0 ? balanceType : 'dr'),
-            ledgreRecords
+            ledgerRecords
         }
         res.status(200).json({ success: true, data: response });
     }

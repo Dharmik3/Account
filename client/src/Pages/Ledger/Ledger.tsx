@@ -31,6 +31,9 @@ import {
   RangeCalendar,
 } from "react-aria-components";
 import { useGetAccountsName } from "../../hooks/useGetAccountsName";
+import dayjs from "dayjs";
+import { parseDate } from "@internationalized/date";
+import { AccountLedger } from "./components";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -54,36 +57,19 @@ function getStyles(name: string, accountName: string[], theme: Theme) {
 
 export const Ledger = () => {
   const theme = useTheme();
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
-  const [currentDate, setCurrentDate] = React.useState<Date>();
+  const [startDate, setStartDate] = React.useState(
+    dayjs().format("YYYY-MM-DD")
+  );
+
+  const [endDate, setEndDate] = React.useState(dayjs().format("YYYY-MM-DD"));
+  const [currentAccountIndex, setCurrentAccountIndex] =
+    React.useState<number>(0);
   const { data: getAccountsName } = useGetAccountsName();
 
   const accountsName = React.useMemo(() => {
     return getAccountsName?.pages[0]?.data?.map((elm) => elm?.accountName);
   }, [getAccountsName]);
   const [account, setAccount] = React.useState<string[]>([]);
-
-  const decreaseDateByOneDay = () => {
-    if (currentDate) {
-      const newDate = new Date(currentDate);
-      newDate.setDate(newDate.getDate() - 1);
-      const start = new Date(startDate);
-      if (newDate >= start) {
-        setCurrentDate(newDate);
-      }
-    }
-  };
-  const increaseDateByOneDay = () => {
-    if (currentDate) {
-      const newDate = new Date(currentDate);
-      newDate.setDate(newDate.getDate() + 1);
-      const end = new Date(endDate);
-      if (newDate <= end) {
-        setCurrentDate(newDate);
-      }
-    }
-  };
 
   const handleChange = (e: SelectChangeEvent<typeof account>) => {
     const {
@@ -132,13 +118,22 @@ export const Ledger = () => {
           </Box>
           <DateRangePicker
             className="DateRangePicker"
-            onChange={(e) => {
+            onChange={(e: any) => {
               const { start, end } = e;
-              const startDate = `${start.year}-${start.month}-${start.day}`;
-              const endDate = `${end.year}-${end.month}-${end.day}`;
+              const startDate = `${start.year}-${String(start.month).padStart(
+                2,
+                "0"
+              )}-${String(start.day).padStart(2, "0")}`;
+              const endDate = `${end.year}-${String(end.month).padStart(
+                2,
+                "0"
+              )}-${String(end.day).padStart(2, "0")}`;
               setStartDate(startDate);
-              setCurrentDate(new Date(startDate));
               setEndDate(endDate);
+            }}
+            defaultValue={{
+              start: parseDate(startDate),
+              end: parseDate(startDate),
             }}
           >
             <Group className="Group">
@@ -201,16 +196,31 @@ export const Ledger = () => {
             }}
             my={3}
           >
-            <IconButton onClick={decreaseDateByOneDay}>
+            <IconButton
+              onClick={() =>
+                setCurrentAccountIndex((prev) =>
+                  prev - 1 < 0 ? account.length - 1 : prev - 1
+                )
+              }
+            >
               <ArrowBackIosNewOutlined />
             </IconButton>
             <Typography fontSize={24} fontWeight={600}>
-              {currentDate?.toDateString()}
+              {account[currentAccountIndex]}
             </Typography>
-            <IconButton onClick={increaseDateByOneDay}>
+            <IconButton
+              onClick={() =>
+                setCurrentAccountIndex((prev) => (prev + 1) % account.length)
+              }
+            >
               <ArrowForwardIos />
             </IconButton>
           </Box>
+          <AccountLedger
+            accountName={account[currentAccountIndex]}
+            startDate={startDate}
+            endDate={endDate}
+          />
         </>
       )}
     </>

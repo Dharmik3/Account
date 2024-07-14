@@ -36,3 +36,14 @@ export interface GetDailyBookRecord {
 export const getDailyBookRecordKey = {
   keys: (args: GetDailyBookRecord) => [args],
 };
+
+export interface GetLedger {
+  key: string;
+  startDate: string;
+  endDate: string;
+  accountName: string;
+}
+
+export const getLedgerKey = {
+  keys: (args: GetLedger) => [args],
+};

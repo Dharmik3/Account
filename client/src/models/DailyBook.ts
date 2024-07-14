@@ -1,5 +1,3 @@
-import { BalanceType } from "./Account";
-
 export interface CrAccountEntry {
   receiptNumber: number;
   transactionDetails: string;
@@ -27,3 +25,4 @@ export interface DailyBook {
   cr: CrEntry[] | [];
   dr: DrEntry[] | [];
 }
+
