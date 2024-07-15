@@ -10,8 +10,16 @@ const app = express();
 dotenv.config();
 require('./services/connection');
 const corsOptions = {
-    credentials: true,
-    origin: ['https://account-fawn.vercel.app/','http://localhost:5001'] // Whitelist the domains you want to allow
+    origin: '*',
+
+    methods: [
+        'GET',
+        'POST',
+    ],
+
+    allowedHeaders: [
+        'Content-Type',
+    ],
 };
 
 app.use(cors(corsOptions))
