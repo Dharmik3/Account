@@ -37,8 +37,8 @@ export const AccountMasterDialog = (props: AccountMasterDialogProps) => {
     setOpen(false);
     refetchAccountMasterList();
   };
-  const onError = () => {
-    console.log("error");
+  const onError = (e: any) => {
+    console.log(e);
   };
   const { mutate: createAccount, isSuccess } = useCreateAccountMaster(
     onSuccess,
@@ -66,7 +66,6 @@ export const AccountMasterDialog = (props: AccountMasterDialogProps) => {
 
   const handleCreate = async () => {
     createAccount(input as CreateMasterAccountPayload);
-    // createAccountMaster(input as CreateMasterAccountPayload);
   };
   <Snackbar
     open={isSuccess}

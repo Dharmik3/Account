@@ -56,7 +56,6 @@ export const JournalEntryForm = () => {
     details: "",
   };
   const onSuccess = () => {
-    console.log("success");
     setInput(initialData);
     enequeSnackBar();
   };
@@ -85,7 +84,6 @@ export const JournalEntryForm = () => {
         input.details
     );
   }, [input]);
-  console.log(validation)
 
   const handleCreate = async () => {
     createJournalEntry(input as CreateJournalEntry);
@@ -131,7 +129,6 @@ export const JournalEntryForm = () => {
         </Typography>
         <TextField
           name="cashBankAccount"
-          select
           onChange={handleChange}
           value={input.cashBankAccount}
           size="small"
