@@ -7,7 +7,6 @@ import { queryClient } from "./cache";
 import { Container } from "@mui/material";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-
 export const theme = createTheme({
   palette: {
     mode: "light",

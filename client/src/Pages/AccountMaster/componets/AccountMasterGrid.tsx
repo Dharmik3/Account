@@ -5,8 +5,8 @@ import { useGetAccountMaster } from "../../../hooks/useGetAccountMaster";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 250 },
-  { field: "accountName", headerName: "Account name", width: 230 },
-  { field: "accountType", headerName: "Account Type", width: 150 },
+  { field: "accountName", headerName: "Account name", width: 300 },
+  { field: "accountType", headerName: "Account Type", width: 200 },
   {
     field: "openingBalance",
     headerName: "Opening Balance",
@@ -18,7 +18,7 @@ const columns: GridColDef[] = [
     field: "balanceType",
     headerName: "Balance Type",
     sortable: false,
-    width: 100,
+    width: 150,
   },
   {
     headerName: "Actions",

@@ -1,28 +1,29 @@
 import { Typography, Box } from "@mui/material";
-import img from "../../assets/sample.jpg";
+import heroImg from "../../assets/heroImage.jpeg";
 export const Home = () => {
   return (
     <Box sx={{ px: 8, my: 12 }}>
-      <Box sx={{ display: "flex", gap: 8 }}>
-        <Box>
-          <Typography variant="h3" fontWeight={700}>
-            Let's scale your business
-          </Typography>
-          <Typography variant="h6" color={"grey"}>
-            Hire professionals who will help your business make 10X your
-            previous income. With over 5years experience in Marketing & Business
-            strategy, we are your best client.
-          </Typography>
-        </Box>
-        <Box>
-          <img
-            src={img}
-            alt="My Team"
-            width={700}
-            height={"auto"}
-            style={{ objectFit: "contain" }}
-          />
-        </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h4" fontWeight={700} mb={2}>
+          Smt C.R.Gardi Gayatri Highschool, Lei
+        </Typography>
+        <Typography variant="h6" color={"grey"} mb={4}>
+          Work Hard, Dream Big
+        </Typography>
+        <img
+          src={heroImg}
+          alt="Lei Hoghschool pic"
+          width={700}
+          height={"auto"}
+          style={{ objectFit: "contain" }}
+        />
       </Box>
     </Box>
   );

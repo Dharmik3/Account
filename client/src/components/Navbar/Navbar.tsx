@@ -1,9 +1,9 @@
 import React from "react";
-import { IcecreamTwoTone } from "@mui/icons-material";
 import { AppBar, Avatar, Box, Typography } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.jpeg";
 
 export const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -41,13 +41,16 @@ export const Navbar = () => {
         backgroundColor: "dodgerblue",
       }}
     >
-      <IcecreamTwoTone
-        fontSize="large"
+      <img
+        src={logo}
+        alt="logo of gayatri school"
+        width={40}
+        height={40}
         onClick={() => navigate("/")}
-        sx={{ cursor: "pointer" }}
+        style={{ cursor: "pointer" }}
       />
       <Typography fontWeight={600} fontSize={20} ml={1}>
-        Software
+        Account
       </Typography>
       <Box
         sx={{
