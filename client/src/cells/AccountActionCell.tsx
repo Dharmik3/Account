@@ -13,15 +13,16 @@ export const AccountActionCell = (props: AccoutnActionCellType) => {
 
   const [open, setOpen] = React.useState(false);
   const [openDeletDialog, setOpenDeleteDialog] = React.useState(false);
-  if (data.accountName === "Cash A/C") return "—";
   return (
     <Box>
       <IconButton onClick={() => setOpen(true)}>
         <EditRounded color="primary" />
       </IconButton>
-      <IconButton onClick={() => setOpenDeleteDialog(true)}>
-        <DeleteRounded color="error" />
-      </IconButton>
+      {data.accountName !== "Cash A/C" && (
+        <IconButton onClick={() => setOpenDeleteDialog(true)}>
+          <DeleteRounded color="error" />
+        </IconButton>
+      )}
       <AccountMasterUpdateDialog open={open} setOpen={setOpen} data={data} />
       <AccountMasterDeleteDialog
         open={openDeletDialog}

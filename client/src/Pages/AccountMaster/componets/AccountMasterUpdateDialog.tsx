@@ -80,7 +80,7 @@ export const AccountMasterUpdateDialog = (
         input[key as keyof InputType] !== initialData[key as keyof InputType]
       ) {
         // @ts-ignore
-        updatedFields[key as keyof InputType ] = input[key as keyof InputType];
+        updatedFields[key as keyof InputType] = input[key as keyof InputType];
       }
     });
 
@@ -142,6 +142,7 @@ export const AccountMasterUpdateDialog = (
               sx={{ display: "block", mb: 3, textOverflow: "ellipsis" }}
               InputProps={{
                 style: { width: 250 },
+                readOnly: input.accountName === "Cash A/C",
               }}
             />
           </Box>
@@ -162,6 +163,7 @@ export const AccountMasterUpdateDialog = (
               sx={{ display: "block", mb: 3 }}
               InputProps={{
                 style: { width: 250 },
+                readOnly: input.accountName === "Cash A/C",
               }}
             >
               {accountType.map((option) => (

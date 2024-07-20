@@ -129,6 +129,8 @@ export const JournalEntryForm = () => {
         </Typography>
         <TextField
           name="cashBankAccount"
+          select
+          label='Cash Bank Account'
           onChange={handleChange}
           value={input.cashBankAccount}
           size="small"
@@ -240,6 +242,7 @@ export const JournalEntryForm = () => {
           <TextField
             name="generalAccount"
             select
+            label='General Account'
             onChange={handleChange}
             value={input.generalAccount}
             size="small"

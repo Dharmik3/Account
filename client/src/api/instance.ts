@@ -33,12 +33,6 @@ export function createAxiosInstance() {
         };
 
         throw res;
-      } else if (response.response.status === 401) {
-        if (localStorage.getItem("token")?.length) {
-          window.location.reload();
-          localStorage.clear();
-          window.location.href = "/#/login";
-        }
       } else if (response.response.status === 403) {
         window.location.href = "/#/404";
       }
