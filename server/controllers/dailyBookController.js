@@ -1,4 +1,5 @@
 const Journal = require('../models/journalSchema');
+const GeneralAccount = require('../models/generalAccountSchema')
 
 exports.getJournalInRange = async (req, res, next) => {
     const { date } = req.query;
@@ -27,12 +28,21 @@ exports.getJournalInRange = async (req, res, next) => {
             }
 
         });
+        // fetching the account opening balance odf Cash A/C
+        const [openingAccount] = await GeneralAccount.find({ accountName: 'Cash A/C' }).select({ openingBalance: 1, balanceType: 1 }).exec();
+        const { openingBalance: accountOpeningBalance, balanceType } = openingAccount;
 
+        // Adding the openinig balance according to it's type
+        if (balanceType === 'cr') {
+            openingBalance += accountOpeningBalance;
+        }
+        else {
+            openingBalance -= accountOpeningBalance;
+        }
 
         const dailyJournals = await Journal.find({
             transactionDate: date
         })
-
 
         const groupedRecords = {
             cr: {},
@@ -109,7 +119,7 @@ exports.getJournalInRange = async (req, res, next) => {
             }
 
         });
-        
+
         res.status(200).json({ success: true, data: result });
     }
     catch (error) {

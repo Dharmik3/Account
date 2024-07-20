@@ -40,13 +40,12 @@ exports.getLedger = async (req, res, next) => {
                 return record.balanceType === 'cr' ? acc + record.amount : acc - record.amount;
             }
         }, 0)
-        if (accountName !== 'Cash A/C') {
-            if (balanceType === 'cr') {
-                prevBalance += openingBalance;
-            }
-            else {
-                prevBalance -= openingBalance;
-            }
+
+        if (balanceType === 'cr') {
+            prevBalance += openingBalance;
+        }
+        else {
+            prevBalance -= openingBalance;
         }
 
 
