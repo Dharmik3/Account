@@ -13,14 +13,14 @@ exports.getJournalInRange = async (req, res, next) => {
         // Calculate the opening balance
         let openingBalance = 0;
         previousJournals.forEach(record => {
-            if (record.cashBankAccount === CASH_AC) {
+            if (record.cashBankAccount === 'Cash A/C') {
                 if (record.balanceType === 'cr') {
                     openingBalance += record.amount;
                 } else if (record.balanceType === 'dr') {
                     openingBalance -= record.amount;
                 }
             }
-            else if (record.generalAccount === CASH_AC) {
+            else if (record.generalAccount === 'Cash A/C') {
                 if (record.balanceType === 'cr') {
                     openingBalance -= record.amount;
                 } else if (record.balanceType === 'dr') {
@@ -30,7 +30,7 @@ exports.getJournalInRange = async (req, res, next) => {
 
         });
         // fetching the account opening balance odf Cash A/C
-        const [openingAccount] = await GeneralAccount.find({ accountName: CASH_AC }).select({ openingBalance: 1, balanceType: 1 }).exec();
+        const [openingAccount] = await GeneralAccount.find({ accountName: 'Cash A/C' }).select({ openingBalance: 1, balanceType: 1 }).exec();
         const { openingBalance: accountOpeningBalance, balanceType } = openingAccount;
 
         // Adding the openinig balance according to it's type
@@ -104,14 +104,14 @@ exports.getJournalInRange = async (req, res, next) => {
             });
         }
         dailyJournals.forEach(record => {
-            if (record.cashBankAccount === CASH_AC) {
+            if (record.cashBankAccount === 'Cash A/C') {
                 if (record.balanceType === 'cr') {
                     result.closingBalance += record.amount;
                 } else if (record.balanceType === 'dr') {
                     result.closingBalance -= record.amount;
                 }
             }
-            else if (record.generalAccount === CASH_AC) {
+            else if (record.generalAccount === 'Cash A/C') {
                 if (record.balanceType === 'cr') {
                     result.closingBalance -= record.amount;
                 } else if (record.balanceType === 'dr') {

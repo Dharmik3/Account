@@ -6,9 +6,7 @@ import {
 } from "@mui/material";
 import { useGetDateFormatted } from "../../../utils/useGetDateFormatted";
 import { useDailyBookRecord } from "../../../hooks/useGetDailyBookRecord";
-import { CASH_AC } from "../../../constants/account";
 import "./styles.scss";
-
 interface DailyRecordType {
   currentDate: Date;
 }
@@ -79,12 +77,12 @@ const DailyRecord = (props: DailyRecordType) => {
                     <td>{entry.transactionDetails}</td>
                     <td>{entry.receiptNumber}</td>
                     <td>
-                      {accountGroup.accountName !== CASH_AC
+                      {accountGroup.accountName !== "Cash A/C"
                         ? entry.amount
                         : "—"}
                     </td>
                     <td>
-                      {accountGroup.accountName === CASH_AC
+                      {accountGroup.accountName === "Cash A/C"
                         ? entry.amount
                         : "—"}
                     </td>
@@ -129,12 +127,12 @@ const DailyRecord = (props: DailyRecordType) => {
                     <td>{entry.details}</td>
                     <td>{entry.voucherNumber}</td>
                     <td>
-                      {accountGroup.accountName !== CASH_AC
+                      {accountGroup.accountName !== "Cash A/C"
                         ? entry.amount
                         : "—"}
                     </td>
                     <td>
-                      {accountGroup.accountName === CASH_AC
+                      {accountGroup.accountName === "Cash A/C"
                         ? entry.amount
                         : "—"}
                     </td>

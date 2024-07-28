@@ -9,5 +9,3 @@ export const accountType = [
   { label: "Sales", value: "sales" },
   { label: "Non Recurring", value: "non recurring" },
 ];
-
-export const CASH_AC = "Cash A/C";
