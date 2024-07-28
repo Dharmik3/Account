@@ -21,6 +21,7 @@ import {
 } from "../../../models";
 import { useUpdateAccountMaster } from "../../../hooks/useUpdateAccountMaster";
 import { useGetAccountMaster } from "../../../hooks/useGetAccountMaster";
+import { CASH_AC } from "../../../constants/account";
 
 interface AccountMasterUpdateDialogProps {
   open: boolean;
@@ -142,7 +143,7 @@ export const AccountMasterUpdateDialog = (
               sx={{ display: "block", mb: 3, textOverflow: "ellipsis" }}
               InputProps={{
                 style: { width: 250 },
-                readOnly: input.accountName === "Cash A/C",
+                readOnly: input.accountName === CASH_AC,
               }}
             />
           </Box>
@@ -163,7 +164,7 @@ export const AccountMasterUpdateDialog = (
               sx={{ display: "block", mb: 3 }}
               InputProps={{
                 style: { width: 250 },
-                readOnly: input.accountName === "Cash A/C",
+                readOnly: input.accountName === CASH_AC,
               }}
             >
               {accountType.map((option) => (
