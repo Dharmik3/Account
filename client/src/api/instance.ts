@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from "axios";
-
+const isProd = import.meta.env.VITE_PROD;
 let APIInstance: AxiosInstance;
 export function createAxiosInstance() {
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_PROD
+    baseURL: isProd
       ? "https://account-service-kdvp.onrender.com/api"
       : `http://localhost:5001/api`,
   });

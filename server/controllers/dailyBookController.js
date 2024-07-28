@@ -1,6 +1,6 @@
 const Journal = require('../models/journalSchema');
 const GeneralAccount = require('../models/generalAccountSchema')
-const CASH_AC = require('../constant');
+const CASH_AC = 'Cash A/C'
 
 exports.getJournalInRange = async (req, res, next) => {
     const { date } = req.query;
