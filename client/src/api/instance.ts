@@ -4,7 +4,7 @@ let APIInstance: AxiosInstance;
 
 export function createAxiosInstance() {
   const instance = axios.create({
-    baseURL: false
+    baseURL: isProd
       ? "https://account-service-kdvp.onrender.com/api"
       : `http://localhost:5001/api`,
   });
